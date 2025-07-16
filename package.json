@@ -1,7 +1,7 @@
 {
   "name": "ai-shell",
   "version": "1.0.0",
-  "description": "Convert natural language to shell commands using OpenAI",
+  "description": "Convert natural language to shell commands using multiple AI providers (OpenAI, Anthropic, Google, Ollama)",
   "main": "index.js",
   "bin": {
     "ai-shell": "./index.js"
@@ -14,12 +14,26 @@
     "cli",
     "shell",
     "openai",
+    "anthropic",
+    "google",
+    "ollama",
     "ai",
     "command",
-    "natural-language"
+    "natural-language",
+    "gpt",
+    "claude",
+    "gemini"
   ],
-  "author": "",
+  "author": "trojan0x",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trojan0x/ai-shell.git"
+  },
+  "homepage": "https://github.com/trojan0x/ai-shell#readme",
+  "bugs": {
+    "url": "https://github.com/trojan0x/ai-shell/issues"
+  },
   "dependencies": {
     "commander": "^11.1.0",
     "openai": "^4.20.1",
