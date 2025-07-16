@@ -1,10 +1,10 @@
 {
-  "name": "ai-shell",
+  "name": "nlshell",
   "version": "1.0.0",
   "description": "Convert natural language to shell commands using multiple AI providers (OpenAI, Anthropic, Google, Ollama)",
   "main": "index.js",
   "bin": {
-    "ai-shell": "./index.js"
+    "nlshell": "./index.js"
   },
   "scripts": {
     "start": "node index.js",
