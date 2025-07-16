@@ -23,6 +23,22 @@ export class GoogleProvider extends BaseProvider {
         explanation
       };
     } catch (error) {
+      // Handle model not found errors
+      if (error.message.includes('models/') && error.message.includes('is not found')) {
+        return {
+          success: false,
+          error: `Model '${this.config.model}' not found. Please check the model name or run 'nlshell --setup' to reconfigure.`
+        };
+      }
+      
+      // Handle quota/rate limit errors
+      if (error.message.includes('429') || error.message.includes('quota') || error.message.includes('rate limit')) {
+        return {
+          success: false,
+          error: `Google API quota exceeded. Please check your billing or try again later. You can also switch to a different provider with 'nlshell --setup'.`
+        };
+      }
+      
       return {
         success: false,
         error: error.message
@@ -39,6 +55,16 @@ export class GoogleProvider extends BaseProvider {
       
       return response.text().trim();
     } catch (error) {
+      // Handle model not found errors
+      if (error.message.includes('models/') && error.message.includes('is not found')) {
+        return `Unable to generate explanation: Model '${this.config.model}' not found.`;
+      }
+      
+      // Handle quota/rate limit errors
+      if (error.message.includes('429') || error.message.includes('quota') || error.message.includes('rate limit')) {
+        return 'Unable to generate explanation: Google API quota exceeded.';
+      }
+      
       return 'Unable to generate explanation.';
     }
   }

@@ -25,8 +25,8 @@ export class ConfigManager {
       },
       google: {
         name: 'Google (Gemini)',
-        models: ['gemini-pro', 'gemini-pro-vision'],
-        defaultModel: 'gemini-pro',
+        models: ['gemini-1.5-pro', 'gemini-1.5-flash', 'gemini-1.0-pro'],
+        defaultModel: 'gemini-1.5-pro',
         envKey: 'GOOGLE_API_KEY',
         baseUrl: 'https://generativelanguage.googleapis.com'
       },
@@ -141,6 +141,14 @@ export class ConfigManager {
       await this.setupWizard();
       return await this.loadConfig();
     }
+    
+    // Migrate old Google model names
+    if (config.provider === 'google' && config.model === 'gemini-pro') {
+      console.log(chalk.yellow('⚠️  Updating Google model from gemini-pro to gemini-1.5-pro...'));
+      config.model = 'gemini-1.5-pro';
+      await this.saveConfig(config);
+    }
+    
     return config;
   }
 
