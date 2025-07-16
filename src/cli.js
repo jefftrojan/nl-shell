@@ -1,0 +1,170 @@
+import { Command } from 'commander';
+import chalk from 'chalk';
+import ora from 'ora';
+import inquirer from 'inquirer';
+import { AIShell } from './ai-shell.js';
+import { CommandHistory } from './history.js';
+import { ConfigManager } from './config.js';
+
+const program = new Command();
+
+export async function runCLI() {
+  const configManager = new ConfigManager();
+  let aiShell;
+  let history;
+  
+  try {
+    aiShell = new AIShell();
+    history = new CommandHistory();
+  } catch (error) {
+    aiShell = null;
+    history = null;
+  }
+
+  program
+    .name('ai-shell')
+    .description('Convert natural language to shell commands using OpenAI')
+    .version('1.0.0')
+    .argument('[query]', 'Natural language description of the command you want to run')
+    .option('-e, --explain', 'Explain what the command does')
+    .option('-d, --dry-run', 'Show the command but don\'t run it')
+    .option('--history', 'Show command history')
+    .option('--setup', 'Run setup wizard to configure AI provider')
+    .option('--config', 'Show current configuration')
+    .action(async (query, options) => {
+      try {
+        // Handle setup wizard
+        if (options.setup) {
+          await configManager.setupWizard();
+          return;
+        }
+
+        // Handle config display
+        if (options.config) {
+          const config = await configManager.loadConfig();
+          if (!config) {
+            console.log(chalk.yellow('No configuration found. Run --setup to configure.'));
+            return;
+          }
+          console.log(chalk.blue('\nCurrent Configuration:'));
+          console.log(chalk.gray(`Provider: ${config.provider}`));
+          console.log(chalk.gray(`Model: ${config.model}`));
+          console.log(chalk.gray(`Base URL: ${config.baseUrl}`));
+          console.log(chalk.gray(`Setup Date: ${config.setupDate}`));
+          return;
+        }
+
+        // Check if configuration exists
+        const config = await configManager.loadConfig();
+        if (!config) {
+          console.log(chalk.yellow('No configuration found. Running setup wizard...'));
+          await configManager.setupWizard();
+          // Re-initialize after setup
+          aiShell = new AIShell();
+          history = new CommandHistory();
+        }
+
+        // If no query provided and not setup/config, show help
+        if (!query && !options.setup && !options.config) {
+          console.log(chalk.yellow('No query provided.'));
+          console.log(chalk.white('Usage: npx ai-shell "your natural language command"'));
+          console.log(chalk.white('Run --help for more options.'));
+          return;
+        }
+
+        // Show history if requested
+        if (options.history) {
+          const commands = await history.getHistory();
+          if (commands.length === 0) {
+            console.log(chalk.yellow('No command history found.'));
+            return;
+          }
+          console.log(chalk.blue('\nCommand History:'));
+          commands.forEach((cmd, index) => {
+            console.log(chalk.gray(`${index + 1}. ${cmd.query}`));
+            console.log(chalk.white(`   → ${cmd.command}`));
+            console.log(chalk.gray(`   ${cmd.timestamp}`));
+            console.log('');
+          });
+          return;
+        }
+
+        // Show spinner while getting AI response
+        const spinner = ora('Converting to shell command...').start();
+        
+        const result = await aiShell.convertToCommand(query);
+        spinner.stop();
+
+        if (!result.success) {
+          console.error(chalk.red('Error:'), result.error);
+          process.exit(1);
+        }
+
+        const { command, explanation } = result;
+
+        // Show explanation if requested
+        if (options.explain) {
+          console.log(chalk.blue('\nExplanation:'));
+          console.log(chalk.white(explanation));
+          console.log('');
+        }
+
+        // Show the command
+        console.log(chalk.green('\nSuggested command:'));
+        console.log(chalk.cyan(command));
+        console.log('');
+
+        // Safety check
+        if (aiShell.isDangerousCommand(command)) {
+          console.log(chalk.red('⚠️  Warning: This command may be dangerous!'));
+          console.log(chalk.red('Execution blocked for safety.'));
+          process.exit(1);
+        }
+
+        // Dry run mode
+        if (options.dryRun) {
+          console.log(chalk.yellow('Dry run mode - command not executed.'));
+          return;
+        }
+
+        // Ask for confirmation
+        const { confirm } = await inquirer.prompt([
+          {
+            type: 'confirm',
+            name: 'confirm',
+            message: 'Do you want to execute this command?',
+            default: false
+          }
+        ]);
+
+        if (!confirm) {
+          console.log(chalk.yellow('Command execution cancelled.'));
+          return;
+        }
+
+        // Execute the command
+        console.log(chalk.blue('\nExecuting command...\n'));
+        const executionResult = await aiShell.executeCommand(command);
+        
+        if (executionResult.success) {
+          console.log(chalk.green('\n✅ Command executed successfully!'));
+          if (executionResult.output) {
+            console.log(chalk.white('\nOutput:'));
+            console.log(executionResult.output);
+          }
+        } else {
+          console.log(chalk.red('\n❌ Command failed:'));
+          console.log(chalk.red(executionResult.error));
+        }
+
+        // Save to history
+        await history.addCommand(query, command);
+
+      } catch (error) {
+        console.error(chalk.red('Unexpected error:'), error.message);
+        process.exit(1);
+      }
+    });
+
+  await program.parseAsync();
+} 

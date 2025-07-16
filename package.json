@@ -1,0 +1,33 @@
+{
+  "name": "ai-shell",
+  "version": "1.0.0",
+  "description": "Convert natural language to shell commands using OpenAI",
+  "main": "index.js",
+  "bin": {
+    "ai-shell": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "shell",
+    "openai",
+    "ai",
+    "command",
+    "natural-language"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "openai": "^4.20.1",
+    "@anthropic-ai/sdk": "^0.18.0",
+    "@google/generative-ai": "^0.21.0",
+    "chalk": "^5.3.0",
+    "ora": "^7.0.1",
+    "inquirer": "^9.2.12"
+  },
+  "type": "module"
+} 
