@@ -1,6 +1,6 @@
 {
   "name": "nlshell",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Convert natural language to shell commands using multiple AI providers (OpenAI, Anthropic, Google, Ollama)",
   "main": "index.js",
   "bin": {
@@ -44,4 +44,4 @@
     "inquirer": "^9.2.12"
   },
   "type": "module"
-} 
+}
