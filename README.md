@@ -1,6 +1,17 @@
 # AI Shell
 
-A Node.js CLI tool that converts natural language descriptions into shell commands using OpenAI's GPT API.
+A Node.js CLI tool that converts natural language descriptions into shell commands using multiple AI providers.
+
+```
+    ╔══════════════════════════════════════════════════════════════╗
+    ║  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ║
+    ║  ║ A ║  ║ I ║  ║ - ║  ║ S ║  ║ H ║  ║ L ║  ║
+    ║  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ║
+    ╚══════════════════════════════════════════════════════════════╝
+    🤖 Convert natural language to shell commands with AI
+    🚀 Multi-provider support: OpenAI, Anthropic, Google, Ollama
+    🛡️  Built-in safety filters and command history
+```
 
 ## Features
 
