@@ -3,6 +3,7 @@ import { join } from 'path';
 import { homedir } from 'os';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
+import { displayBanner } from './ascii-art.js';
 
 export class ConfigManager {
   constructor() {
@@ -54,7 +55,7 @@ export class ConfigManager {
   }
 
   async setupWizard() {
-    console.log(chalk.blue('\n🤖 AI Shell Setup Wizard\n'));
+    displayBanner('setup');
     console.log(chalk.gray('Choose your AI provider and configure your API key.\n'));
 
     // Step 1: Choose provider

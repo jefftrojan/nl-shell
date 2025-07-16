@@ -5,6 +5,7 @@ import inquirer from 'inquirer';
 import { AIShell } from './ai-shell.js';
 import { CommandHistory } from './history.js';
 import { ConfigManager } from './config.js';
+import { displayBanner } from './ascii-art.js';
 
 const program = new Command();
 
@@ -21,6 +22,9 @@ export async function runCLI() {
     history = null;
   }
 
+  // Display banner on startup
+  displayBanner('main');
+
   program
     .name('ai-shell')
     .description('Convert natural language to shell commands using OpenAI')
@@ -35,6 +39,7 @@ export async function runCLI() {
       try {
         // Handle setup wizard
         if (options.setup) {
+          displayBanner('setup');
           await configManager.setupWizard();
           return;
         }
@@ -46,6 +51,7 @@ export async function runCLI() {
             console.log(chalk.yellow('No configuration found. Run --setup to configure.'));
             return;
           }
+          displayBanner('providers');
           console.log(chalk.blue('\nCurrent Configuration:'));
           console.log(chalk.gray(`Provider: ${config.provider}`));
           console.log(chalk.gray(`Model: ${config.model}`));
@@ -116,6 +122,7 @@ export async function runCLI() {
 
         // Safety check
         if (aiShell.isDangerousCommand(command)) {
+          displayBanner('safety');
           console.log(chalk.red('⚠️  Warning: This command may be dangerous!'));
           console.log(chalk.red('Execution blocked for safety.'));
           process.exit(1);
@@ -147,13 +154,13 @@ export async function runCLI() {
         const executionResult = await aiShell.executeCommand(command);
         
         if (executionResult.success) {
-          console.log(chalk.green('\n✅ Command executed successfully!'));
+          displayBanner('success');
           if (executionResult.output) {
             console.log(chalk.white('\nOutput:'));
             console.log(executionResult.output);
           }
         } else {
-          console.log(chalk.red('\n❌ Command failed:'));
+          displayBanner('error');
           console.log(chalk.red(executionResult.error));
         }
 
