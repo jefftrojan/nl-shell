@@ -161,4 +161,19 @@ export class ConfigManager {
       ...value
     }));
   }
+
+  async uninstall() {
+    try {
+      // Remove config file
+      await writeFile(this.configFile, '{}');
+      
+      // Remove history file
+      const historyFile = join(homedir(), '.ai-shell-history.json');
+      await writeFile(historyFile, '[]');
+      
+      console.log(chalk.green('✅ Configuration and history files cleared.'));
+    } catch (error) {
+      throw new Error(`Could not uninstall: ${error.message}`);
+    }
+  }
 } 

@@ -35,6 +35,7 @@ export async function runCLI() {
     .option('--history', 'Show command history')
     .option('--setup', 'Run setup wizard to configure AI provider')
     .option('--config', 'Show current configuration')
+    .option('--uninstall', 'Remove nlshell configuration and history')
     .action(async (query, options) => {
       try {
         // Handle setup wizard
@@ -57,6 +58,41 @@ export async function runCLI() {
           console.log(chalk.gray(`Model: ${config.model}`));
           console.log(chalk.gray(`Base URL: ${config.baseUrl}`));
           console.log(chalk.gray(`Setup Date: ${config.setupDate}`));
+          return;
+        }
+
+        // Handle uninstall
+        if (options.uninstall) {
+          displayBanner('safety');
+          console.log(chalk.yellow('\n⚠️  Uninstall nlshell configuration and history?'));
+          console.log(chalk.gray('This will remove:'));
+          console.log(chalk.gray('  • Configuration file (~/.ai-shell-config.json)'));
+          console.log(chalk.gray('  • Command history (~/.ai-shell-history.json)'));
+          console.log(chalk.gray('  • All saved settings and preferences'));
+          console.log(chalk.red('\nThis action cannot be undone!'));
+          
+          const { confirm } = await inquirer.prompt([
+            {
+              type: 'confirm',
+              name: 'confirm',
+              message: 'Do you want to proceed with uninstall?',
+              default: false
+            }
+          ]);
+
+          if (confirm) {
+            try {
+              await configManager.uninstall();
+              await history.clearHistory();
+              console.log(chalk.green('\n✅ nlshell configuration and history removed successfully!'));
+              console.log(chalk.gray('The nlshell package is still installed. To completely remove it, run:'));
+              console.log(chalk.white('  npm uninstall -g nlshell'));
+            } catch (error) {
+              console.log(chalk.red('\n❌ Error during uninstall:'), error.message);
+            }
+          } else {
+            console.log(chalk.yellow('\nUninstall cancelled.'));
+          }
           return;
         }
 
