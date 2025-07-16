@@ -11,19 +11,33 @@ assignees: ''
 - **Provider Website**: [URL]
 - **API Documentation**: [URL]
 - **Free Tier Available**: [Yes/No]
+- **Pricing Model**: [e.g. per token, per request, etc.]
 
 ## Why This Provider?
-Explain why this provider would be valuable to ai-shell users.
+Explain why this provider would be valuable to NLShell users.
 
 ## Implementation Notes
 - API endpoints and authentication method
 - Model availability and pricing
-- Any special considerations
+- Any special considerations (rate limits, token limits, etc.)
+- Integration complexity (low/medium/high)
 
 ## Example Usage
 ```bash
-npx ai-shell "list files" --provider cohere
+nlshell "list files" --provider cohere
 ```
+
+## Provider Comparison
+How does this provider compare to existing ones?
+- **vs OpenAI**: [advantages/disadvantages]
+- **vs Anthropic**: [advantages/disadvantages]
+- **vs Google**: [advantages/disadvantages]
+- **vs Ollama**: [advantages/disadvantages]
+
+## Testing & Validation
+- Can you provide API access for testing?
+- Are there any specific models you'd recommend?
+- Any known limitations or quirks?
 
 ## Additional Context
 Any other relevant information about the provider or implementation.
@@ -32,4 +46,6 @@ Any other relevant information about the provider or implementation.
 - [ ] Provider has a public API
 - [ ] Provider offers text generation capabilities
 - [ ] I can help with implementation or testing
-- [ ] Provider is actively maintained 
+- [ ] Provider is actively maintained
+- [ ] Provider has good documentation
+- [ ] Provider offers reasonable pricing 

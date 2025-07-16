@@ -17,7 +17,7 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 - Add `--timeout` CLI option
 
 **Files to Modify**:
-- `src/providers/base-provider.js`
+- `src/ai-shell.js`
 - `src/cli.js`
 - `src/config.js`
 
@@ -52,7 +52,7 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 **Acceptance Criteria**:
 - Add `--alias` command to create shortcuts
 - Store aliases in config file
-- Support `npx ai-shell @alias-name`
+- Support `nlshell @alias-name`
 - List aliases with `--aliases` flag
 
 **Files to Modify**:
@@ -72,7 +72,7 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 - `--export-history` flag to save history to file
 - `--import-history` flag to load from file
 - Support JSON and CSV formats
-- Include metadata (timestamps, success/failure)
+- Include metadata (timestamps, success/failure, provider used)
 
 **Files to Modify**:
 - `src/history.js`
@@ -99,9 +99,28 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 
 ---
 
+### Issue #6: Add Session Memory
+**Labels**: `enhancement`, `agentic`
+**Priority**: Medium
+
+**Description**: Implement session memory to remember context across multiple commands in a single session.
+
+**Acceptance Criteria**:
+- Remember previous commands in session
+- Allow referencing previous commands
+- Context-aware command generation
+- Session timeout/cleanup
+
+**Files to Modify**:
+- `src/ai-shell.js`
+- `src/cli.js`
+- Add session management module
+
+---
+
 ## 🔧 Infrastructure
 
-### Issue #6: Add Unit Tests
+### Issue #7: Add Unit Tests
 **Labels**: `testing`, `good-first-issue`
 **Priority**: High
 
@@ -109,7 +128,7 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 
 **Acceptance Criteria**:
 - Set up Jest or Mocha test framework
-- Add tests for all provider classes
+- Add tests for all AI providers
 - Add tests for CLI functionality
 - Add tests for safety filters
 - Achieve >80% code coverage
@@ -121,7 +140,7 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 
 ---
 
-### Issue #7: Add CI/CD Pipeline
+### Issue #8: Add CI/CD Pipeline
 **Labels**: `ci/cd`, `infrastructure`
 **Priority**: Medium
 
@@ -139,7 +158,7 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 
 ---
 
-### Issue #8: Add Code Linting and Formatting
+### Issue #9: Add Code Linting and Formatting
 **Labels**: `code-quality`, `good-first-issue`
 **Priority**: Medium
 
@@ -160,7 +179,7 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 
 ## 📚 Documentation
 
-### Issue #9: Add API Documentation
+### Issue #10: Add API Documentation
 **Labels**: `documentation`, `good-first-issue`
 **Priority**: Low
 
@@ -178,11 +197,11 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 
 ---
 
-### Issue #10: Add Video Tutorials
+### Issue #11: Add Video Tutorials
 **Labels**: `documentation`, `community`
 **Priority**: Low
 
-**Description**: Create video tutorials showing how to use ai-shell effectively.
+**Description**: Create video tutorials showing how to use NLShell effectively.
 
 **Acceptance Criteria**:
 - Basic usage tutorial
@@ -194,45 +213,274 @@ These are suggested issues to create when the repository is pushed to GitHub. Th
 
 ## 🚀 Providers
 
-### Issue #11: Add Cohere Provider
+### Issue #12: Add Cohere Provider
 **Labels**: `provider`, `enhancement`
 **Priority**: Medium
 
-**Description**: Add support for Cohere's language models.
+**Description**: Add support for Cohere's AI models for command generation.
 
 **Acceptance Criteria**:
-- Implement CohereProvider class
-- Add to provider factory
-- Update config manager
-- Add tests
+- Implement Cohere API integration
+- Add to setup wizard
+- Test with various models
+- Update documentation
 
-**Files to Create**:
-- `src/providers/cohere-provider.js`
-- Update existing provider files
+**Files to Modify**:
+- `src/ai-shell.js`
+- `src/cli.js` (setup wizard)
+- `docs/usage.md`
 
 ---
 
-### Issue #12: Add Hugging Face Provider
+### Issue #13: Add Hugging Face Provider
 **Labels**: `provider`, `enhancement`
-**Priority**: Low
+**Priority**: Medium
 
-**Description**: Add support for Hugging Face's inference API.
+**Description**: Add support for Hugging Face's inference API for local and cloud models.
 
 **Acceptance Criteria**:
-- Implement HuggingFaceProvider class
-- Support multiple models
-- Handle API rate limits
-- Add tests
+- Implement Hugging Face API integration
+- Support for various model types
+- Add to setup wizard
+- Update documentation
+
+**Files to Modify**:
+- `src/ai-shell.js`
+- `src/cli.js` (setup wizard)
+- `docs/usage.md`
+
+---
+
+## 🎯 Agentic Features (Version 2.0)
+
+### Issue #14: Multi-step Reasoning
+**Labels**: `agentic`, `enhancement`
+**Priority**: Low
+
+**Description**: Implement multi-step reasoning to break complex tasks into smaller, manageable steps.
+
+**Acceptance Criteria**:
+- Analyze complex queries
+- Break into sub-tasks
+- Execute steps sequentially
+- Provide progress feedback
+
+**Files to Modify**:
+- `src/ai-shell.js`
+- Add reasoning module
+
+---
+
+### Issue #15: Learning Mode
+**Labels**: `agentic`, `enhancement`
+**Priority**: Low
+
+**Description**: Implement learning from user corrections and preferences to improve future command generation.
+
+**Acceptance Criteria**:
+- Learn from user feedback
+- Store preferences
+- Improve command accuracy
+- Personalize responses
+
+**Files to Modify**:
+- `src/ai-shell.js`
+- Add learning module
+
+---
+
+## 🛡️ Security & Safety
+
+### Issue #16: Enhanced Safety Filters
+**Labels**: `security`, `enhancement`
+**Priority**: High
+
+**Description**: Improve safety filters with more sophisticated pattern detection and user controls.
+
+**Acceptance Criteria**:
+- Machine learning-based detection
+- User-defined safety rules
+- Safety level configuration
+- Audit logging
+
+**Files to Modify**:
+- `src/ai-shell.js`
+- Add safety module
+
+---
+
+## 📊 Analytics & Monitoring
+
+### Issue #17: Usage Analytics
+**Labels**: `analytics`, `enhancement`
+**Priority**: Low
+
+**Description**: Add optional usage analytics to understand how users interact with NLShell.
+
+**Acceptance Criteria**:
+- Anonymous usage tracking
+- Provider usage statistics
+- Command success rates
+- Performance metrics
+
+**Files to Modify**:
+- `src/ai-shell.js`
+- Add analytics module
+
+---
+
+## 🎨 User Experience
+
+### Issue #18: Enhanced UI/UX
+**Labels**: `ux`, `enhancement`
+**Priority**: Medium
+
+**Description**: Improve the user interface with better colors, animations, and user feedback.
+
+**Acceptance Criteria**:
+- Better color schemes
+- Progress indicators
+- Command suggestions
+- Error recovery hints
+
+**Files to Modify**:
+- `src/cli.js`
+- `src/ai-shell.js`
+
+---
+
+## 🔌 Plugin System
+
+### Issue #19: Plugin Architecture
+**Labels**: `architecture`, `enhancement`
+**Priority**: Low
+
+**Description**: Design and implement a plugin system for extending NLShell functionality.
+
+**Acceptance Criteria**:
+- Plugin loading mechanism
+- Plugin API documentation
+- Example plugins
+- Plugin management commands
+
+**Files to Create**:
+- `src/plugins/` directory
+- Plugin system architecture
+- Example plugins
+
+---
+
+## 🧪 Testing & Quality
+
+### Issue #20: Integration Tests
+**Labels**: `testing`, `good-first-issue`
+**Priority**: Medium
+
+**Description**: Add integration tests that test the full CLI workflow with real AI providers.
+
+**Acceptance Criteria**:
+- End-to-end test scenarios
+- Mock AI provider responses
+- Test all CLI options
+- Test error scenarios
+
+**Files to Create**:
+- `tests/integration/` directory
+- Integration test files
+- Test utilities
+
+---
+
+## 📈 Performance
+
+### Issue #21: Performance Optimization
+**Labels**: `performance`, `enhancement`
+**Priority**: Medium
+
+**Description**: Optimize NLShell for faster response times and better resource usage.
+
+**Acceptance Criteria**:
+- Reduce API call latency
+- Optimize prompt engineering
+- Add response caching
+- Memory usage optimization
+
+**Files to Modify**:
+- `src/ai-shell.js`
+- Add caching module
+
+---
+
+## 🌐 Internationalization
+
+### Issue #22: Multi-language Support
+**Labels**: `i18n`, `enhancement`
+**Priority**: Low
+
+**Description**: Add support for multiple languages in the CLI interface and command generation.
+
+**Acceptance Criteria**:
+- Language detection
+- Localized messages
+- Multi-language prompts
+- Language configuration
+
+**Files to Modify**:
+- `src/cli.js`
+- Add i18n module
+- Language files
+
+---
+
+## 🔄 Migration & Compatibility
+
+### Issue #23: Configuration Migration
+**Labels**: `migration`, `enhancement`
+**Priority**: Low
+
+**Description**: Add tools to help users migrate from other similar tools to NLShell.
+
+**Acceptance Criteria**:
+- Import from other tools
+- Configuration conversion
+- History migration
+- Migration documentation
+
+**Files to Create**:
+- Migration utilities
+- Migration documentation
+
+---
+
+## 📱 Platform Support
+
+### Issue #24: Windows Support Improvements
+**Labels**: `windows`, `enhancement`
+**Priority**: Medium
+
+**Description**: Improve Windows compatibility and user experience.
+
+**Acceptance Criteria**:
+- Windows-specific command handling
+- PowerShell integration
+- Windows path handling
+- Windows-specific documentation
+
+**Files to Modify**:
+- `src/ai-shell.js`
+- Windows-specific utilities
 
 ---
 
 ## 🎯 Good First Issues Summary
 
 For new contributors, start with these issues:
-1. **#1** - Add Error Handling for Network Timeouts
-2. **#2** - Improve Safety Filter for Edge Cases  
-3. **#3** - Add Command Aliases and Shortcuts
-4. **#6** - Add Unit Tests
-5. **#8** - Add Code Linting and Formatting
+1. **Issue #1**: Add Error Handling for Network Timeouts
+2. **Issue #2**: Improve Safety Filter for Edge Cases
+3. **Issue #3**: Add Command Aliases and Shortcuts
+4. **Issue #4**: Add Export/Import for Command History
+7. **Issue #7**: Add Unit Tests
+9. **Issue #9**: Add Code Linting and Formatting
+10. **Issue #10**: Add API Documentation
 
-These issues are well-scoped and provide good learning opportunities for the codebase. 
+These issues provide a good mix of bug fixes, features, and infrastructure improvements that are suitable for contributors of all skill levels. 

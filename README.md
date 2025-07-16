@@ -1,12 +1,12 @@
-# AI Shell
+# NLShell
 
-A Node.js CLI tool that converts natural language descriptions into shell commands using multiple AI providers.
+A powerful Node.js CLI tool that converts natural language descriptions into shell commands using multiple AI providers.
 
 ```
     ╔══════════════════════════════════════════════════════════════╗
-    ║  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ║
-    ║  ║ A ║  ║ I ║  ║ - ║  ║ S ║  ║ H ║  ║ L ║  ║
-    ║  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ║
+    ║  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ╔═══╗  ║
+    ║  ║ N ║  ║ L ║  ║ S ║  ║ H ║  ║ E ║  ║ L ║  ║ L ║  ║ ! ║  ║
+    ║  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ╚═══╝  ║
     ╚══════════════════════════════════════════════════════════════╝
     🤖 Convert natural language to shell commands with AI
     🚀 Multi-provider support: OpenAI, Anthropic, Google, Ollama
@@ -15,35 +15,47 @@ A Node.js CLI tool that converts natural language descriptions into shell comman
 
 ## Features
 
-- 🤖 **AI-Powered**: Uses OpenAI GPT to convert natural language to shell commands
+- 🤖 **Multi-AI Support**: Choose from OpenAI GPT, Anthropic Claude, Google Gemini, or Ollama
 - 🛡️ **Safety First**: Built-in safety filters to prevent dangerous commands
-- 📝 **Command History**: Tracks your command history locally
-- 🎨 **Beautiful UI**: Colored output and spinners for better UX
+- 📝 **Command History**: Tracks your command history locally with timestamps
+- 🎨 **Beautiful UI**: Colored output, spinners, and ASCII art for better UX
 - ⚡ **Fast**: Optimized prompts for quick responses
-- 🔍 **Explanations**: Get explanations of what commands do
+- 🔍 **Explanations**: Get detailed explanations of what commands do
 - 🧪 **Dry Run**: Test commands without executing them
+- 🎯 **Setup Wizard**: Interactive setup for selecting providers and API keys
+- 📊 **Command Confirmation**: Review and confirm commands before execution
+- 🗑️ **Clean Uninstall**: Safe removal of configuration and history files
 
 ## Installation
 
-### Prerequisites
+### Global Installation (Recommended)
 
-- Node.js 16+ 
-- OpenAI API key
+```bash
+npm install -g nlshell
+```
 
-### Setup
+### Local Installation
 
-1. **Clone or download this repository**
-2. **Install dependencies:**
+```bash
+npm install nlshell
+npx nlshell
+```
+
+## Quick Start
+
+1. **Install the package:**
    ```bash
-   npm install
+   npm install -g nlshell
    ```
-3. **Set your OpenAI API key:**
+
+2. **Run the setup wizard:**
    ```bash
-   export OPENAI_API_KEY="your-api-key-here"
+   nlshell --setup
    ```
-4. **Make the CLI executable:**
+
+3. **Start using it:**
    ```bash
-   chmod +x index.js
+   nlshell "list all files in current directory"
    ```
 
 ## Usage
@@ -52,23 +64,28 @@ A Node.js CLI tool that converts natural language descriptions into shell comman
 
 ```bash
 # Convert natural language to shell command
-npx ai-shell "list all files in current directory"
+nlshell "list all files in current directory"
 
-# Or run directly if installed locally
-node index.js "find all python files"
+# With explanation
+nlshell "show disk usage" --explain
+
+# Dry run - show command without executing
+nlshell "list git branches" --dry-run
 ```
 
 ### Command Options
 
 ```bash
-# Show explanation of what the command does
-npx ai-shell "show disk usage" --explain
+nlshell [options] <query>
 
-# Dry run - show command without executing
-npx ai-shell "list git branches" --dry-run
-
-# View command history
-npx ai-shell --history
+Options:
+  -V, --version          output the version number
+  -h, --help            display help for command
+  -e, --explain         explain what the command does
+  -d, --dry-run         show command without executing
+  -s, --setup           run interactive setup wizard
+  --history             show command history
+  --uninstall           remove configuration and history files
 ```
 
 ### Examples
@@ -81,6 +98,66 @@ npx ai-shell --history
 | "list all git branches sorted by date" | `git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/` |
 | "check system memory" | `free -h` |
 | "find files modified today" | `find . -mtime -1` |
+| "compress all jpg files" | `tar -czf images.tar.gz *.jpg` |
+
+## AI Providers
+
+NLShell supports multiple AI providers:
+
+### OpenAI GPT
+- **Model**: GPT-4 or GPT-3.5-turbo
+- **Setup**: Requires OpenAI API key
+- **Best for**: General command generation
+
+### Anthropic Claude
+- **Model**: Claude-3-Sonnet or Claude-3-Haiku
+- **Setup**: Requires Anthropic API key
+- **Best for**: Detailed explanations and reasoning
+
+### Google Gemini
+- **Model**: Gemini Pro
+- **Setup**: Requires Google API key
+- **Best for**: Creative command solutions
+
+### Ollama (Local)
+- **Models**: Any Ollama model (llama2, codellama, etc.)
+- **Setup**: Requires Ollama running locally
+- **Best for**: Privacy and offline use
+
+## Configuration
+
+### Setup Wizard
+
+Run the interactive setup wizard to configure your preferred AI provider:
+
+```bash
+nlshell --setup
+```
+
+The wizard will:
+- Let you choose your preferred AI provider
+- Guide you through API key setup
+- Test the connection
+- Save your configuration
+
+### Manual Configuration
+
+Configuration is stored in `~/.nlshell-config.json`:
+
+```json
+{
+  "provider": "openai",
+  "apiKey": "your-api-key-here",
+  "model": "gpt-4"
+}
+```
+
+### Environment Variables
+
+You can also set API keys via environment variables:
+- `OPENAI_API_KEY`: For OpenAI
+- `ANTHROPIC_API_KEY`: For Anthropic
+- `GOOGLE_API_KEY`: For Google
 
 ## Safety Features
 
@@ -94,31 +171,48 @@ The tool includes comprehensive safety filters that block dangerous commands:
 - Wildcards with root directories
 - Fork bombs and other malicious patterns
 
-## Configuration
+## Command History
 
-### Environment Variables
-
-- `OPENAI_API_KEY`: Your OpenAI API key (required)
-
-### History File
-
-Command history is stored in `~/.ai-shell-history.json` and includes:
+Command history is stored in `~/.nlshell-history.json` and includes:
 - Original natural language query
 - Generated shell command
 - Timestamp
+- Provider used
+
+View your history:
+```bash
+nlshell --history
+```
+
+## Uninstallation
+
+To completely remove NLShell and all its data:
+
+```bash
+nlshell --uninstall
+```
+
+This will:
+- Remove the global package
+- Delete configuration files
+- Clear command history
+- Clean up all traces
 
 ## Development
 
 ### Project Structure
 
 ```
-ai-shell/
+nlshell/
 ├── index.js          # CLI entry point
 ├── package.json      # Dependencies and metadata
 ├── src/
 │   ├── cli.js        # Main CLI logic
-│   ├── ai-shell.js   # OpenAI integration and command execution
+│   ├── ai-shell.js   # AI integration and command execution
+│   ├── config.js     # Configuration management
 │   └── history.js    # Command history management
+├── docs/             # Documentation
+├── .github/          # GitHub templates and workflows
 └── README.md         # This file
 ```
 
@@ -126,18 +220,22 @@ ai-shell/
 
 ```bash
 # Test basic functionality
-npx ai-shell "list files" --dry-run
+nlshell "list files" --dry-run
 
 # Test explanation feature
-npx ai-shell "show disk usage" --explain --dry-run
+nlshell "show disk usage" --explain --dry-run
+
+# Test setup wizard
+nlshell --setup
 ```
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **"OPENAI_API_KEY environment variable is required"**
-   - Set your OpenAI API key: `export OPENAI_API_KEY="your-key"`
+1. **"API key not found"**
+   - Run `nlshell --setup` to configure your API key
+   - Or set the appropriate environment variable
 
 2. **"Command execution failed"**
    - Check if the command is valid for your system
@@ -147,28 +245,69 @@ npx ai-shell "show disk usage" --explain --dry-run
    - The safety filter detected a potentially dangerous command
    - Review the command carefully before proceeding
 
+4. **"Provider not available"**
+   - Ensure your chosen AI provider is properly configured
+   - Check your API key and internet connection
+
 ### Getting Help
 
 ```bash
 # Show help
-npx ai-shell --help
+nlshell --help
 
 # Show version
-npx ai-shell --version
+nlshell --version
 ```
 
 ## Contributing
 
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### Quick Start for Contributors
+
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+2. Clone your fork: `git clone https://github.com/yourusername/ai-shell.git`
+3. Install dependencies: `npm install`
+4. Create a feature branch: `git checkout -b feature/amazing-feature`
+5. Make your changes and test: `npm start "test command"`
+6. Commit your changes: `git commit -m 'Add amazing feature'`
+7. Push to your fork: `git push origin feature/amazing-feature`
+8. Open a Pull Request
+
+## Roadmap
+
+### Version 2.0 - Agentic Features
+- **Session Memory**: Remember context across multiple commands
+- **Multi-step Reasoning**: Break complex tasks into steps
+- **Learning Mode**: Learn from user corrections and preferences
+- **Autonomous Decision Making**: Execute safe commands automatically
+- **Multi-agent Collaboration**: Use multiple AI providers for complex tasks
+
+### Version 1.x - Current Development
+- ✅ Multi-provider AI support
+- ✅ Setup wizard
+- ✅ Command history
+- ✅ Safety filters
+- ✅ Beautiful UI
+- 🔄 Enhanced error handling
+- 🔄 More AI providers
+- 🔄 Plugin system
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Disclaimer
 
-This tool is provided as-is. Always review generated commands before execution. The safety filters are not foolproof and should not be relied upon as the only safety measure. 
+This tool is provided as-is. Always review generated commands before execution. The safety filters are not foolproof and should not be relied upon as the only safety measure. Use at your own risk.
+
+## Support
+
+- 📖 [Documentation](https://github.com/trojan0x/ai-shell#readme)
+- 🐛 [Report Issues](https://github.com/trojan0x/ai-shell/issues)
+- 💡 [Feature Requests](https://github.com/trojan0x/ai-shell/issues)
+- 🤝 [Contributing](CONTRIBUTING.md)
+
+---
+
+**Made with ❤️ by the NLShell community** 
