@@ -4,7 +4,7 @@
   "description": "Convert natural language to shell commands using multiple AI providers (OpenAI, Anthropic, Google, Ollama)",
   "main": "index.js",
   "bin": {
-    "nlshell": "./index.js"
+    "nlshell": "index.js"
   },
   "scripts": {
     "start": "node index.js",
@@ -28,7 +28,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trojan0x/ai-shell.git"
+    "url": "git+https://github.com/trojan0x/ai-shell.git"
   },
   "homepage": "https://github.com/trojan0x/ai-shell#readme",
   "bugs": {
