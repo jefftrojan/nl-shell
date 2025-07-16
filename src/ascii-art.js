@@ -1,82 +1,82 @@
 import chalk from 'chalk';
 
 export const ASCII_ART = {
-  // Main banner for the CLI
+  // Main banner for the CLI - More vibrant and eye-catching
   banner: `
-${chalk.cyan('    ╔══════════════════════════════════════════════════════════════╗')}
-${chalk.cyan('    ║')}  ${chalk.blue('╔═══╗')}  ${chalk.blue('╔═══╗')}  ${chalk.blue('╔═══╗')}  ${chalk.blue('╔═══╗')}  ${chalk.blue('╔═══╗')}  ${chalk.blue('╔═══╗')}  ${chalk.cyan('║')}
-${chalk.cyan('    ║')}  ${chalk.blue('║')} ${chalk.white('A')} ${chalk.blue('║')}  ${chalk.blue('║')} ${chalk.white('I')} ${chalk.blue('║')}  ${chalk.blue('║')} ${chalk.white('-')} ${chalk.blue('║')}  ${chalk.blue('║')} ${chalk.white('S')} ${chalk.blue('║')}  ${chalk.blue('║')} ${chalk.white('H')} ${chalk.blue('║')}  ${chalk.blue('║')} ${chalk.white('L')} ${chalk.blue('║')}  ${chalk.cyan('║')}
-${chalk.cyan('    ║')}  ${chalk.blue('╚═══╝')}  ${chalk.blue('╚═══╝')}  ${chalk.blue('╚═══╝')}  ${chalk.blue('╚═══╝')}  ${chalk.blue('╚═══╝')}  ${chalk.blue('╚═══╝')}  ${chalk.cyan('║')}
-${chalk.cyan('    ╚══════════════════════════════════════════════════════════════╝')}
-${chalk.gray('    🤖 Convert natural language to shell commands with AI')}
-${chalk.gray('    🚀 Multi-provider support: OpenAI, Anthropic, Google, Ollama')}
-${chalk.gray('    🛡️  Built-in safety filters and command history')}
-`,
-
-  // Compact version for smaller displays
-  compact: `
-${chalk.cyan('╔══════════════════════════════════════════════════════════════╗')}
-${chalk.cyan('║')}  ${chalk.blue('AI-SHELL')}  ${chalk.gray('🤖 Natural language → Shell commands')}  ${chalk.cyan('║')}
-${chalk.cyan('╚══════════════════════════════════════════════════════════════╝')}
-`,
-
-  // Minimal version for error messages
-  minimal: `${chalk.blue('AI-SHELL')} ${chalk.gray('🤖')}`,
-
-  // Success message with art
-  success: `
-${chalk.green('    ╔══════════════════════════════════════════════════════════════╗')}
-${chalk.green('    ║')}  ${chalk.white('✅ Command executed successfully!')}  ${chalk.green('║')}
-${chalk.green('    ╚══════════════════════════════════════════════════════════════╝')}
-`,
-
-  // Error message with art
-  error: `
-${chalk.red('    ╔══════════════════════════════════════════════════════════════╗')}
-${chalk.red('    ║')}  ${chalk.white('❌ Command failed!')}  ${chalk.red('║')}
-${chalk.red('    ╚══════════════════════════════════════════════════════════════╝')}
-`,
-
-  // Setup wizard art
-  setup: `
-${chalk.blue('    ╔══════════════════════════════════════════════════════════════╗')}
-${chalk.blue('    ║')}  ${chalk.white('🔧 AI-SHELL Setup Wizard')}  ${chalk.blue('║')}
-${chalk.blue('    ╚══════════════════════════════════════════════════════════════╝')}
-`,
-
-  // Help art
-  help: `
-${chalk.yellow('    ╔══════════════════════════════════════════════════════════════╗')}
-${chalk.yellow('    ║')}  ${chalk.white('📖 AI-SHELL Help & Usage')}  ${chalk.yellow('║')}
-${chalk.yellow('    ╚══════════════════════════════════════════════════════════════╝')}
-`,
-
-  // Version art
-  version: `
 ${chalk.magenta('    ╔══════════════════════════════════════════════════════════════╗')}
-${chalk.magenta('    ║')}  ${chalk.white('📦 AI-SHELL v1.0.0')}  ${chalk.magenta('║')}
+${chalk.magenta('    ║')}  ${chalk.red('╔═══╗')}  ${chalk.green('╔═══╗')}  ${chalk.yellow('╔═══╗')}  ${chalk.blue('╔═══╗')}  ${chalk.magenta('╔═══╗')}  ${chalk.cyan('╔═══╗')}  ${chalk.magenta('║')}
+${chalk.magenta('    ║')}  ${chalk.red('║')} ${chalk.white.bold('A')} ${chalk.red('║')}  ${chalk.green('║')} ${chalk.white.bold('I')} ${chalk.green('║')}  ${chalk.yellow('║')} ${chalk.white.bold('-')} ${chalk.yellow('║')}  ${chalk.blue('║')} ${chalk.white.bold('S')} ${chalk.blue('║')}  ${chalk.magenta('║')} ${chalk.white.bold('H')} ${chalk.magenta('║')}  ${chalk.cyan('║')} ${chalk.white.bold('L')} ${chalk.cyan('║')}  ${chalk.magenta('║')}
+${chalk.magenta('    ║')}  ${chalk.red('╚═══╝')}  ${chalk.green('╚═══╝')}  ${chalk.yellow('╚═══╝')}  ${chalk.blue('╚═══╝')}  ${chalk.magenta('╚═══╝')}  ${chalk.cyan('╚═══╝')}  ${chalk.magenta('║')}
 ${chalk.magenta('    ╚══════════════════════════════════════════════════════════════╝')}
+${chalk.red.bold('    🤖')} ${chalk.white('Convert natural language to shell commands with AI')}
+${chalk.green.bold('    🚀')} ${chalk.white('Multi-provider support: OpenAI, Anthropic, Google, Ollama')}
+${chalk.blue.bold('    🛡️')} ${chalk.white('Built-in safety filters and command history')}
 `,
 
-  // Loading spinner art
+  // Compact version for smaller displays - More vibrant
+  compact: `
+${chalk.magenta('╔══════════════════════════════════════════════════════════════╗')}
+${chalk.magenta('║')}  ${chalk.red.bold('AI')}${chalk.green.bold('-')}${chalk.yellow.bold('SHELL')}  ${chalk.white('🤖 Natural language → Shell commands')}  ${chalk.magenta('║')}
+${chalk.magenta('╚══════════════════════════════════════════════════════════════╝')}
+`,
+
+  // Minimal version for error messages - More vibrant
+  minimal: `${chalk.red.bold('AI')}${chalk.green.bold('-')}${chalk.yellow.bold('SHELL')} ${chalk.magenta('🤖')}`,
+
+  // Success message with art - More vibrant
+  success: `
+${chalk.green.bold('    ╔══════════════════════════════════════════════════════════════╗')}
+${chalk.green.bold('    ║')}  ${chalk.white.bold('🎉 SUCCESS! Command executed successfully! 🎉')}  ${chalk.green.bold('║')}
+${chalk.green.bold('    ╚══════════════════════════════════════════════════════════════╝')}
+`,
+
+  // Error message with art - More vibrant
+  error: `
+${chalk.red.bold('    ╔══════════════════════════════════════════════════════════════╗')}
+${chalk.red.bold('    ║')}  ${chalk.white.bold('💥 ERROR! Command failed! 💥')}  ${chalk.red.bold('║')}
+${chalk.red.bold('    ╚══════════════════════════════════════════════════════════════╝')}
+`,
+
+  // Setup wizard art - More vibrant
+  setup: `
+${chalk.blue.bold('    ╔══════════════════════════════════════════════════════════════╗')}
+${chalk.blue.bold('    ║')}  ${chalk.white.bold('🔧 AI-SHELL Setup Wizard 🔧')}  ${chalk.blue.bold('║')}
+${chalk.blue.bold('    ╚══════════════════════════════════════════════════════════════╝')}
+`,
+
+  // Help art - More vibrant
+  help: `
+${chalk.yellow.bold('    ╔══════════════════════════════════════════════════════════════╗')}
+${chalk.yellow.bold('    ║')}  ${chalk.white.bold('📖 AI-SHELL Help & Usage 📖')}  ${chalk.yellow.bold('║')}
+${chalk.yellow.bold('    ╚══════════════════════════════════════════════════════════════╝')}
+`,
+
+  // Version art - More vibrant
+  version: `
+${chalk.magenta.bold('    ╔══════════════════════════════════════════════════════════════╗')}
+${chalk.magenta.bold('    ║')}  ${chalk.white.bold('📦 AI-SHELL v1.0.0 📦')}  ${chalk.magenta.bold('║')}
+${chalk.magenta.bold('    ╚══════════════════════════════════════════════════════════════╝')}
+`,
+
+  // Loading spinner art - More vibrant
   loading: `
-${chalk.cyan('    ╔══════════════════════════════════════════════════════════════╗')}
-${chalk.cyan('    ║')}  ${chalk.white('🔄 Processing your request...')}  ${chalk.cyan('║')}
-${chalk.cyan('    ╚══════════════════════════════════════════════════════════════╝')}
+${chalk.cyan.bold('    ╔══════════════════════════════════════════════════════════════╗')}
+${chalk.cyan.bold('    ║')}  ${chalk.white.bold('🔄 Processing your request... 🔄')}  ${chalk.cyan.bold('║')}
+${chalk.cyan.bold('    ╚══════════════════════════════════════════════════════════════╝')}
 `,
 
-  // Provider selection art
+  // Provider selection art - More vibrant
   providers: `
-${chalk.green('    ╔══════════════════════════════════════════════════════════════╗')}
-${chalk.green('    ║')}  ${chalk.white('🤖 Available AI Providers')}  ${chalk.green('║')}
-${chalk.green('    ╚══════════════════════════════════════════════════════════════╝')}
+${chalk.green.bold('    ╔══════════════════════════════════════════════════════════════╗')}
+${chalk.green.bold('    ║')}  ${chalk.white.bold('🤖 Available AI Providers 🤖')}  ${chalk.green.bold('║')}
+${chalk.green.bold('    ╚══════════════════════════════════════════════════════════════╝')}
 `,
 
-  // Safety warning art
+  // Safety warning art - More vibrant
   safety: `
-${chalk.red('    ╔══════════════════════════════════════════════════════════════╗')}
-${chalk.red('    ║')}  ${chalk.white('⚠️  Safety Warning - Command Blocked')}  ${chalk.red('║')}
-${chalk.red('    ╚══════════════════════════════════════════════════════════════╝')}
+${chalk.red.bold('    ╔══════════════════════════════════════════════════════════════╗')}
+${chalk.red.bold('    ║')}  ${chalk.white.bold('⚠️  SAFETY WARNING - COMMAND BLOCKED ⚠️')}  ${chalk.red.bold('║')}
+${chalk.red.bold('    ╚══════════════════════════════════════════════════════════════╝')}
 `
 };
 
